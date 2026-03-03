@@ -1,0 +1,336 @@
+---
+title: Filtering Guide
+description: Detailed guide to filtering job postings by timeframe and location in swelist
+---
+
+## Overview
+
+swelist provides two powerful filtering mechanisms to help you find relevant job postings:
+
+1. **Timeframe filtering** - Filter by when jobs were posted
+2. **Location filtering** - Filter by geographic location
+
+Both filters work together and can be combined for precise searches.
+
+## Timeframe Filtering
+
+Timeframe filtering uses the `--timeframe` parameter to show only jobs posted within a specific time window.
+
+### Available Timeframes
+
+<Tabs>
+  <Tab title="lastday">
+    **Last 24 Hours**
+    
+    Shows jobs posted in the last 24 hours.
+    
+    ```bash
+    swelist --timeframe lastday
+    ```
+    
+    <Info>
+      This is the **default** timeframe if you don't specify one.
+    </Info>
+    
+    **Best for:**
+    - Daily job hunting routine
+    - Staying on top of the newest postings
+    - Quick morning or evening checks
+  </Tab>
+  
+  <Tab title="lastweek">
+    **Last 7 Days**
+    
+    Shows jobs posted in the last 7 days (168 hours).
+    
+    ```bash
+    swelist --timeframe lastweek
+    ```
+    
+    **Best for:**
+    - Weekly review sessions
+    - Catching up after a few days away
+    - Seeing weekly trends
+  </Tab>
+  
+  <Tab title="lastmonth">
+    **Last 30 Days**
+    
+    Shows jobs posted in the last 30 days (720 hours).
+    
+    ```bash
+    swelist --timeframe lastmonth
+    ```
+    
+    **Best for:**
+    - Comprehensive searches
+    - Understanding hiring patterns
+    - Finding older postings that are still active
+  </Tab>
+</Tabs>
+
+### How Timeframe Filtering Works
+
+The timeframe filter calculates the time difference between the current moment and when each job was posted:
+
+- **lastday:** Includes jobs where `(current_time - posting_time) < 24 hours`
+- **lastweek:** Includes jobs where `(current_time - posting_time) < 7 days`
+- **lastmonth:** Includes jobs where `(current_time - posting_time) < 30 days`
+
+<Note>
+  Timeframe filtering is applied **before** location filtering, so the count of available jobs may decrease after applying location filters.
+</Note>
+
+### Examples
+
+```bash
+# Default: last 24 hours
+swelist
+
+# Explicit last day
+swelist --timeframe lastday
+
+# Last week for new grad positions
+swelist --role newgrad --timeframe lastweek
+
+# Last month for comprehensive search
+swelist --role internship --timeframe lastmonth
+```
+
+## Location Filtering
+
+Location filtering uses the `--location` parameter to show only jobs in specific geographic areas.
+
+### Location Matching Logic
+
+swelist uses intelligent location matching with two different strategies:
+
+#### 1. State Code Matching (2-letter inputs)
+
+When you provide a **2-letter location code**, swelist treats it as a US state abbreviation:
+
+```python
+if len(user_location) == 2:  # treat as state code
+    if job_location.endswith(user_location):
+        # Match found
+```
+
+**Examples:**
+- `CA` matches "San Francisco, CA", "Los Angeles, CA", "Palo Alto, CA"
+- `NY` matches "New York, NY", "Buffalo, NY", "Rochester, NY"
+- `TX` matches "Austin, TX", "Houston, TX", "Dallas, TX"
+
+<Tip>
+  State code matching checks if the job location **ends with** the state code, ensuring precise state-level filtering.
+</Tip>
+
+#### 2. City/Country Matching (3+ letter inputs)
+
+When you provide a **longer location string**, swelist performs substring matching:
+
+```python
+else:  # city or country
+    if user_location in job_location:
+        # Match found
+```
+
+**Examples:**
+- `Toronto` matches "Toronto, ON", "Toronto, Canada"
+- `San Francisco` matches "San Francisco, CA"
+- `Remote` matches "Remote", "Remote - US", "Remote - Canada"
+- `Boston` matches "Boston, MA", "Boston Metro Area"
+
+<Info>
+  All location matching is **case-insensitive**, so `toronto`, `TORONTO`, and `Toronto` all work the same.
+</Info>
+
+### Single Location Filter
+
+```bash
+# City name
+swelist --location Seattle
+
+# State code
+swelist --location WA
+
+# Country
+swelist --location Canada
+
+# Remote work
+swelist --location Remote
+```
+
+### Multiple Location Filters
+
+You can search multiple locations simultaneously by separating them with commas:
+
+```bash
+# Multiple cities
+swelist --location "Boston, Seattle, Austin"
+
+# Multiple states
+swelist --location "CA, NY, WA"
+
+# Mix of cities and states
+swelist --location "Toronto, CA, NY, Seattle"
+
+# Mix of everything
+swelist --location "Remote, CA, Boston, Toronto"
+```
+
+<Note>
+  When using multiple locations, wrap the entire parameter in quotes to ensure proper parsing.
+</Note>
+
+### How Multiple Locations Work
+
+The location filter splits your input by commas and checks if **any** of your locations match the job posting:
+
+```python
+user_locations = [loc.strip().lower() for loc in location.split(",")]
+
+for job in postings:
+    job_locations = [l.lower() for l in job.get("locations", [])]
+    
+    for user_loc in user_locations:
+        for job_loc in job_locations:
+            if match_found:
+                include_job()
+                break
+```
+
+A job is included if it matches **at least one** of your specified locations.
+
+### Special Location: "all"
+
+The default location value is `all`, which disables location filtering:
+
+```bash
+# These are equivalent
+swelist
+swelist --location all
+```
+
+<Tip>
+  Use `--location all` to see all available postings regardless of location.
+</Tip>
+
+## Combining Filters
+
+The real power of swelist comes from combining timeframe and location filters:
+
+### Progressive Filtering
+
+1. First, jobs are filtered by **timeframe**
+2. Then, the results are filtered by **location**
+3. Finally, matching jobs are displayed
+
+```bash
+# Find new grad jobs in California from the last week
+swelist --role newgrad --timeframe lastweek --location CA
+```
+
+**This command:**
+1. Fetches new grad positions
+2. Filters to jobs posted in the last 7 days
+3. Further filters to jobs ending in "CA"
+
+### Advanced Filtering Examples
+
+<CodeGroup>
+```bash Targeted Search
+# Very specific search
+swelist --role internship --timeframe lastday --location "Seattle, SF"
+```
+
+```bash Broad Search
+# Cast a wide net
+swelist --role newgrad --timeframe lastmonth --location all
+```
+
+```bash Regional Search
+# Multiple states in a region
+swelist --location "CA, OR, WA" --timeframe lastweek
+```
+
+```bash Remote Focus
+# Remote opportunities only
+swelist --location Remote --timeframe lastmonth
+```
+</CodeGroup>
+
+## Handling No Results
+
+If your filters are too restrictive, you may get no results:
+
+```bash
+swelist --location "Antarctica" --timeframe lastday
+```
+
+**Output:**
+```
+No postings found for location 'Antarctica' in lastday
+```
+
+swelist provides helpful feedback:
+- **No jobs in timeframe:** `No postings found in lastday`
+- **No jobs matching location + timeframe:** `No postings found for location 'X' in lastday`
+
+<Tip>
+  If you get no results, try:
+  - Expanding the timeframe (e.g., `lastday` → `lastweek`)
+  - Broadening the location (e.g., `Seattle` → `WA`)
+  - Using `--location all` to see if any jobs exist in the timeframe
+</Tip>
+
+## Best Practices
+
+### For Daily Searches
+
+```bash
+# Quick check of your target locations
+swelist --location "Seattle, SF, Boston" --timeframe lastday
+```
+
+### For Weekly Reviews
+
+```bash
+# Comprehensive weekly scan
+swelist --role newgrad --timeframe lastweek --location "CA, NY, WA"
+```
+
+### For Initial Research
+
+```bash
+# See everything available in a region
+swelist --timeframe lastmonth --location CA
+```
+
+### For Remote Opportunities
+
+```bash
+# Focus on remote-first positions
+swelist --location Remote --timeframe lastweek
+```
+
+## Tips for Effective Filtering
+
+<Tip>
+  **Use 2-letter state codes for comprehensive coverage:** `CA` will match all California cities, while `San Francisco` will only match that specific city.
+</Tip>
+
+<Tip>
+  **Start broad, then narrow:** Begin with `--timeframe lastmonth` to see overall availability, then use `lastday` for daily monitoring.
+</Tip>
+
+<Tip>
+  **Combine multiple locations strategically:** Instead of running separate searches, combine your target cities: `--location "Boston, NYC, DC"`
+</Tip>
+
+<Tip>
+  **Don't forget Remote:** Many companies list remote positions separately, so include `Remote` in your location list.
+</Tip>
+
+<Info>
+  Location matching is flexible and forgiving - partial matches work, so `"San Francisco"`, `"SF"`, and `"San Fran"` may all return results depending on how companies list their locations.
+</Info>

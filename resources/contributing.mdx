@@ -1,0 +1,114 @@
+---
+title: Contributing
+description: Learn how to contribute to swelist and help improve the project for job seekers everywhere
+---
+
+## Contributing to swelist
+
+Contributions are welcome! We appreciate your interest in helping improve swelist for job seekers tracking tech internships and new-grad positions.
+
+## GitHub Repository
+
+The swelist project is hosted on GitHub:
+- **Repository**: [https://github.com/chenyuan99/swelist](https://github.com/chenyuan99/swelist)
+- **Issues**: [Report bugs or request features](https://github.com/chenyuan99/swelist/issues)
+- **Pull Requests**: [Submit your contributions](https://github.com/chenyuan99/swelist/pulls)
+
+## Development Setup
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip package manager
+
+### Setting Up Your Environment
+
+1. **Fork and clone the repository**:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/swelist.git
+   cd swelist
+   ```
+
+2. **Install the package in development mode**:
+   ```bash
+   pip install -e .
+   ```
+
+3. **Install development dependencies** (if available):
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+## Testing
+
+The project uses CI/CD with GitHub Actions and maintains code coverage with codecov.
+
+- Check the [CI status](https://github.com/chenyuan99/swelist/actions/workflows/ci.yml)
+- View [code coverage reports](https://codecov.io/gh/chenyuan99/swelist)
+
+### Running Tests
+
+```bash
+# Run tests
+pytest
+
+# Run tests with coverage
+pytest --cov=swelist
+```
+
+## Pull Request Guidelines
+
+1. **Create a new branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Make your changes** and ensure they follow the project's coding style
+
+3. **Test your changes** thoroughly
+
+4. **Commit your changes** with clear, descriptive commit messages:
+   ```bash
+   git commit -m "Add feature: description of your changes"
+   ```
+
+5. **Push to your fork**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+6. **Submit a Pull Request** with:
+   - A clear title and description
+   - Reference to any related issues
+   - Description of the changes made
+   - Any relevant testing information
+
+## Areas for Contribution
+
+Here are some ways you can contribute:
+
+- **Bug fixes**: Help resolve issues reported by users
+- **Feature enhancements**: Add new filtering options or improve existing features
+- **Documentation**: Improve README, add examples, or fix typos
+- **Testing**: Increase test coverage or add edge case tests
+- **Performance**: Optimize data fetching or filtering algorithms
+
+## Code Style
+
+- Follow Python PEP 8 style guidelines
+- Use meaningful variable and function names
+- Add comments for complex logic
+- Keep functions focused and modular
+
+## Questions?
+
+If you have questions about contributing, feel free to:
+- Open an issue on GitHub
+- Review existing issues and pull requests
+- Check the project's CI/CD status for testing requirements
+
+## License
+
+By contributing to swelist, you agree that your contributions will be licensed under the MIT License.
+
+See the [LICENSE](https://github.com/chenyuan99/swelist/blob/main/LICENSE) file for details.

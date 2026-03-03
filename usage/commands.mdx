@@ -1,0 +1,119 @@
+---
+title: Command Reference
+description: Complete reference for all swelist CLI commands and parameters
+---
+
+## Main Command
+
+The `swelist` command is the primary interface for searching tech job postings.
+
+```bash
+swelist [OPTIONS]
+```
+
+A CLI tool for job seekers to find internships and new-grad positions. Data is sourced from curated GitHub repositories maintained by SimplifyJobs.
+
+### Parameters
+
+<ParamField path="--role" type="string" default="internship">
+  Specifies the type of job positions to search for.
+  
+  **Available values:**
+  - `internship` - Summer 2025 internship positions (default)
+  - `newgrad` - New graduate full-time positions
+  
+  **Example:**
+  ```bash
+  swelist --role newgrad
+  ```
+</ParamField>
+
+<ParamField path="--timeframe" type="string" default="lastday">
+  Filters job postings by how recently they were posted.
+  
+  **Available values:**
+  - `lastday` - Postings from the last 24 hours (default)
+  - `lastweek` - Postings from the last 7 days
+  - `lastmonth` - Postings from the last 30 days
+  
+  **Example:**
+  ```bash
+  swelist --timeframe lastweek
+  ```
+</ParamField>
+
+<ParamField path="--location" type="string" default="all">
+  Filters job postings by geographic location. Supports single or multiple locations separated by commas.
+  
+  **Default:** `all` (no location filtering)
+  
+  **Matching logic:**
+  - 2-letter values are treated as US state codes (e.g., "CA", "NY")
+  - Longer values match city names or countries (e.g., "Toronto", "Remote")
+  - Case-insensitive matching
+  - Multiple locations can be specified with comma separation
+  
+  **Examples:**
+  ```bash
+  # Single location
+  swelist --location Toronto
+  
+  # Multiple locations
+  swelist --location "CA, Boston, New York"
+  
+  # State code
+  swelist --location NY
+  ```
+</ParamField>
+
+<ParamField path="--version" type="flag">
+  Displays the current version of swelist.
+  
+  **Example:**
+  ```bash
+  swelist --version
+  ```
+</ParamField>
+
+## Output Format
+
+All commands output job postings in a structured text format:
+
+```
+Welcome to swelist.com
+Last updated: [timestamp]
+Found [N] tech internships from 2025Summer-Internships
+Found [N] new-grad tech jobs from New-Grad-Positions
+Sign-up below to receive updates when new internships/jobs are added
+
+Found [N] postings for location '[location]' in [timeframe]
+
+Company: [Company Name]
+Title: [Job Title]
+Location: [Location]
+Link: [Application URL]
+
+[Additional postings...]
+```
+
+<Note>
+  Each job posting includes four key fields: Company name, Job title, Location(s), and Application link.
+</Note>
+
+## Exit Codes
+
+The command returns standard exit codes:
+
+- `0` - Success (jobs found or no jobs matching criteria)
+- Non-zero - Error (network issues, invalid parameters)
+
+## Data Sources
+
+swelist fetches live data from:
+
+- **Internships:** [SimplifyJobs/Summer2025-Internships](https://github.com/SimplifyJobs/Summer2025-Internships)
+- **New Grad:** [SimplifyJobs/New-Grad-Positions](https://github.com/SimplifyJobs/New-Grad-Positions)
+
+<Tip>
+  Data is fetched in real-time, so you always get the most up-to-date job postings without needing to update the CLI tool.
+</Tip>

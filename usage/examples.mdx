@@ -1,0 +1,231 @@
+---
+title: Usage Examples
+description: Real-world examples of using swelist to find tech job postings
+---
+
+## Quick Start
+
+The simplest way to use swelist is without any options, which shows internships from the last 24 hours:
+
+```bash
+swelist
+```
+
+**Expected Output:**
+```
+Welcome to swelist.com
+Last updated: Sun Feb 23 13:03:45 2025
+Found 1227 tech internships from 2025Summer-Internships
+Found 103 new-grad tech jobs from New-Grad-Positions
+Sign-up below to receive updates when new internships/jobs are added
+
+Found 15 postings for location 'all' in lastday
+
+Company: Example Tech
+Title: Software Engineering Intern
+Location: New York, NY
+Link: https://example.com/apply
+
+Company: TechCorp
+Title: Backend Engineering Intern
+Location: San Francisco, CA
+Link: https://techcorp.com/careers/123
+```
+
+## Searching by Role
+
+<CodeGroup>
+```bash Internships
+# Search for internship positions (default)
+swelist --role internship
+```
+
+```bash New Grad Positions
+# Search for new graduate full-time positions
+swelist --role newgrad
+```
+</CodeGroup>
+
+**New Grad Output Example:**
+```
+Found 8 postings for location 'all' in lastday
+
+Company: DataCo
+Title: Software Engineer - New Grad
+Location: Seattle, WA
+Link: https://dataco.com/apply/newgrad
+```
+
+## Filtering by Timeframe
+
+<Tabs>
+  <Tab title="Last Day">
+    ```bash
+    swelist --timeframe lastday
+    ```
+    Shows postings from the last 24 hours. This is the default timeframe.
+  </Tab>
+  
+  <Tab title="Last Week">
+    ```bash
+    swelist --timeframe lastweek
+    ```
+    Shows postings from the last 7 days. Useful for catching up after a few days.
+  </Tab>
+  
+  <Tab title="Last Month">
+    ```bash
+    swelist --timeframe lastmonth
+    ```
+    Shows postings from the last 30 days. Great for seeing overall trends.
+  </Tab>
+</Tabs>
+
+## Location-Based Searching
+
+### Single Location
+
+<CodeGroup>
+```bash City Name
+# Find internships in Toronto
+swelist --location Toronto
+```
+
+```bash State Code
+# Find internships in California
+swelist --location CA
+```
+
+```bash Remote
+# Find remote internships
+swelist --location Remote
+```
+</CodeGroup>
+
+### Multiple Locations
+
+```bash
+# Search in multiple cities
+swelist --location "Boston, New York, Toronto"
+```
+
+```bash
+# Mix state codes and city names
+swelist --location "CA, NY, Seattle, Austin"
+```
+
+**Output Example:**
+```
+Found 23 postings for location 'CA, NY, Seattle' in lastday
+
+Company: StartupXYZ
+Title: Full Stack Engineering Intern
+Locations: ['San Francisco, CA', 'New York, NY']
+Link: https://startupxyz.com/jobs/intern
+
+Company: BigTech Inc
+Title: Software Development Intern
+Locations: ['Seattle, WA', 'Redmond, WA']
+Link: https://bigtech.com/careers/sde-intern
+```
+
+## Combining Multiple Filters
+
+### New Grad + Recent + Location
+
+```bash
+# Find new grad positions in California from the last week
+swelist --role newgrad --timeframe lastweek --location CA
+```
+
+**Output:**
+```
+Found 12 postings for location 'CA' in lastweek
+
+Company: CloudCorp
+Title: Software Engineer (New Grad)
+Location: San Francisco, CA
+Link: https://cloudcorp.com/newgrad
+
+Company: AI Startup
+Title: Machine Learning Engineer - New Grad
+Location: Palo Alto, CA
+Link: https://aistartup.io/careers/mle
+```
+
+### Internships + Extended Timeframe + Multiple Locations
+
+```bash
+# Cast a wider net for internships
+swelist --role internship --timeframe lastmonth --location "Boston, New York, SF"
+```
+
+### All New Grad Positions from Last Month
+
+```bash
+# See all recent new grad opportunities
+swelist --role newgrad --timeframe lastmonth
+```
+
+<Tip>
+  Combine `--timeframe lastmonth` with specific locations to see hiring trends in your target cities.
+</Tip>
+
+## Handling No Results
+
+If no postings match your criteria, you'll see a helpful message:
+
+```bash
+swelist --location "Antarctica"
+```
+
+**Output:**
+```
+Welcome to swelist.com
+Last updated: Sun Feb 23 14:30:12 2025
+Found 1227 tech internships from 2025Summer-Internships
+Found 103 new-grad tech jobs from New-Grad-Positions
+
+No postings found for location 'Antarctica' in lastday
+```
+
+## Practical Workflows
+
+### Daily Job Check
+
+```bash
+# Morning routine: check new postings in your target locations
+swelist --location "Seattle, SF, Austin" --timeframe lastday
+```
+
+### Weekly Review
+
+```bash
+# Sunday evening: review the week's new grad positions
+swelist --role newgrad --timeframe lastweek
+```
+
+### Location Scouting
+
+```bash
+# Explore opportunities in a specific state
+swelist --location NY --timeframe lastmonth
+```
+
+<Note>
+  The `--location` parameter is case-insensitive and matches partial strings, making it flexible for different location formats.
+</Note>
+
+## Tips for Effective Searches
+
+<Tip>
+  **Use state codes for broader coverage:** `--location CA` will match all California cities (San Francisco, Los Angeles, San Diego, etc.)
+</Tip>
+
+<Tip>
+  **Check both timeframes:** If `lastday` returns few results, try `lastweek` to see more opportunities.
+</Tip>
+
+<Tip>
+  **Monitor both roles:** Some companies post similar positions under both internship and new grad categories.
+</Tip>

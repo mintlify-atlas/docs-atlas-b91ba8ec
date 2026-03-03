@@ -1,80 +1,218 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quick Start
+description: Get your first job listings in minutes with these simple examples
 ---
 
-## Get started in three steps
+## Get Your First Results
 
-Get your documentation site running locally and make your first customization.
+Let's get you up and running with swelist. This guide will walk you through the most common use cases.
 
-### Step 1: Set up your local environment
+<Steps>
+  <Step title="Run swelist with Default Options">
+    The simplest way to use swelist is to run it without any flags. This shows internship positions from the last 24 hours:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    ```bash
+    swelist
+    ```
 
-### Step 2: Deploy your changes
+    **Sample Output:**
+    ```
+    Welcome to swelist.com
+    Last updated: Sun Feb 23 13:03:45 2025
+    Found 1227 tech internships from 2025Summer-Internships
+    Found 103 new-grad tech jobs from New-Grad-Positions
+    Sign-up below to receive updates when new internships/jobs are added
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    Found 15 postings in the last day:
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    Company: Example Tech
+    Title: Software Engineering Intern
+    Location: New York, NY
+    Link: https://example.com/apply
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    Company: Innovation Labs
+    Title: Data Science Intern
+    Location: San Francisco, CA
+    Link: https://innovation-labs.com/careers
+    ...
+    ```
 
-### Step 3: Go live
+    <Tip>
+    By default, swelist shows internship positions from the last 24 hours. This is equivalent to running `swelist --role internship --timeframe lastday`.
+    </Tip>
+  </Step>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+  <Step title="Find New-Grad Positions">
+    Looking for full-time new-grad roles instead? Use the `--role` flag:
 
-## Next steps
+    ```bash
+    swelist --role newgrad
+    ```
 
-Now that you have your docs running, explore these key features:
+    This displays new-graduate positions posted in the last 24 hours.
 
-<CardGroup cols={2}>
+    **Sample Output:**
+    ```
+    Welcome to swelist.com
+    Last updated: Sun Feb 23 13:05:22 2025
+    Found 1227 tech internships from 2025Summer-Internships
+    Found 103 new-grad tech jobs from New-Grad-Positions
+    Sign-up below to receive updates when new internships/jobs are added
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+    Found 8 postings in the last day:
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+    Company: Tech Innovations Inc
+    Title: Software Engineer - New Grad
+    Location: Seattle, WA
+    Link: https://techinnovations.com/apply/newgrad
+    ...
+    ```
+  </Step>
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+  <Step title="Expand Your Time Window">
+    Want to see more opportunities? Expand the time window to see postings from the last week or month:
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+    <CodeGroup>
+    ```bash Last Week
+    swelist --role internship --timeframe lastweek
+    ```
 
-</CardGroup>
+    ```bash Last Month
+    swelist --role internship --timeframe lastmonth
+    ```
+
+    ```bash New-Grad Last Week
+    swelist --role newgrad --timeframe lastweek
+    ```
+    </CodeGroup>
+
+    <Note>
+    The `--timeframe` flag accepts three values:
+    - `lastday` (24 hours) - default
+    - `lastweek` (7 days)
+    - `lastmonth` (30 days)
+    </Note>
+  </Step>
+
+  <Step title="Filter by Location">
+    Focus on specific locations using the `--location` flag. You can search by city, state code, or country:
+
+    <CodeGroup>
+    ```bash Single City
+    swelist --role internship --location Toronto
+    ```
+
+    ```bash State Code (2 letters)
+    swelist --role internship --location CA
+    ```
+
+    ```bash Multiple Locations
+    swelist --role internship --location "Boston, New York"
+    ```
+
+    ```bash New-Grad in Multiple Cities
+    swelist --role newgrad --timeframe lastmonth --location "Boston, New York"
+    ```
+    </CodeGroup>
+
+    <Tip>
+    When specifying multiple locations, separate them with commas and wrap the entire string in quotes. State codes (2 letters) are matched against the end of location strings.
+    </Tip>
+
+    **Sample Output with Location Filter:**
+    ```
+    Welcome to swelist.com
+    Last updated: Sun Feb 23 13:10:15 2025
+    Found 1227 tech internships from 2025Summer-Internships
+    Found 103 new-grad tech jobs from New-Grad-Positions
+    Sign-up below to receive updates when new internships/jobs are added
+
+    Found 5 postings for location 'Toronto' in lastday
+
+    Company: FinTech Solutions
+    Title: Backend Engineering Intern
+    Location: Toronto, ON
+    Link: https://fintech-solutions.ca/jobs
+    ...
+    ```
+  </Step>
+</Steps>
+
+## Common Use Cases
+
+### Daily Internship Check
+
+Check for new internship postings every morning:
+
+```bash
+swelist --role internship --timeframe lastday
+```
+
+### Weekly New-Grad Review
+
+Review all new-grad positions posted this week:
+
+```bash
+swelist --role newgrad --timeframe lastweek
+```
+
+### Location-Specific Search
+
+Find all internships in California from the last month:
+
+```bash
+swelist --role internship --timeframe lastmonth --location CA
+```
+
+### Multi-City New-Grad Hunt
+
+Search for new-grad roles in multiple tech hubs:
+
+```bash
+swelist --role newgrad --location "San Francisco, Seattle, New York, Boston"
+```
+
+## Understanding the Output
+
+Each job posting in the output contains four key pieces of information:
+
+- **Company**: The hiring company's name
+- **Title**: The job title or role description
+- **Location**: Geographic location(s) of the position
+- **Link**: Direct URL to the application page
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+Some postings may display both `location` (single string) and `locations` (array of locations) fields depending on the source data format.
 </Note>
+
+## No Results?
+
+If swelist returns no results, it could mean:
+
+1. **No new postings in the timeframe**: Try expanding with `--timeframe lastweek` or `--timeframe lastmonth`
+2. **Location too specific**: The location string must match part of the job's location field
+3. **No matches for your criteria**: Try removing the location filter or changing the role
+
+**Example Messages:**
+```
+No postings found in lastday
+```
+or
+```
+No postings found for location 'Denver' in lastday
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Command Reference" icon="book" href="/usage/commands">
+    Learn about all available commands and options in detail
+  </Card>
+  <Card title="Filtering Guide" icon="filter" href="/usage/filtering">
+    Master location and timeframe filtering
+  </Card>
+</CardGroup>
+
+<Tip>
+swelist is designed for repeated execution and automation. Consider setting up a daily cron job to automatically check for new positions matching your criteria!
+</Tip>

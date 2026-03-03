@@ -1,0 +1,121 @@
+---
+title: FAQ
+description: Frequently asked questions about swelist, including data sources, updates, filtering, and troubleshooting
+---
+
+## Frequently Asked Questions
+
+<Accordion title="Where does swelist get its job posting data?">
+  swelist sources data from two public GitHub repositories maintained by SimplifyJobs:
+  
+  - **Internships**: [Summer2025-Internships](https://github.com/SimplifyJobs/Summer2025-Internships)
+  - **New Grad Positions**: [New-Grad-Positions](https://github.com/SimplifyJobs/New-Grad-Positions)
+  
+  The data is fetched in real-time directly from these repositories when you run the CLI tool.
+</Accordion>
+
+<Accordion title="How often is the job data updated?">
+  swelist fetches data in real-time from the SimplifyJobs repositories every time you run the tool. The data is as current as what's available in those repositories.
+  
+  The SimplifyJobs repositories are community-maintained and typically updated daily as new positions are posted or existing ones are filled.
+  
+  You can see the last update time displayed in the welcome message when you run swelist.
+</Accordion>
+
+<Accordion title="How do location filters work?">
+  Location filtering is flexible and supports multiple formats:
+  
+  - **Single location**: `--location Toronto` or `--location Canada`
+  - **Multiple locations**: `--location "Boston, New York, Toronto"`
+  - **State codes**: 2-letter codes like `--location "CA, NY"` (matches locations ending with that state)
+  - **City names**: Matches any location containing the city name
+  - **All locations**: `--location all` (default)
+  
+  The filter performs case-insensitive partial matching, so "boston" will match "Boston, MA".
+</Accordion>
+
+<Accordion title="What timeframe options are available for filtering?">
+  swelist supports three timeframe filters:
+  
+  - `--timeframe lastday`: Postings from the last 24 hours (default)
+  - `--timeframe lastweek`: Postings from the last 7 days
+  - `--timeframe lastmonth`: Postings from the last 30 days
+  
+  Example usage:
+  ```bash
+  swelist --role internship --timeframe lastweek
+  ```
+  
+  These filters help you focus on the most recent opportunities.
+</Accordion>
+
+<Accordion title="What should I do if no results are found?">
+  If you see "No postings found" messages, try these solutions:
+  
+  1. **Expand your timeframe**: Try `--timeframe lastweek` or `--timeframe lastmonth` instead of the default `lastday`
+  
+  2. **Broaden your location filter**: Remove or adjust the `--location` parameter to see more results
+  
+  3. **Try the other role**: Switch between `--role internship` and `--role newgrad`
+  
+  4. **Check data sources**: Visit the SimplifyJobs repositories directly to verify if new positions have been posted recently
+  
+  Example:
+  ```bash
+  # Instead of:
+  swelist --location "Seattle" --timeframe lastday
+  
+  # Try:
+  swelist --location "Seattle" --timeframe lastmonth
+  ```
+</Accordion>
+
+<Accordion title="How accurate and fresh is the data?">
+  The data accuracy depends on the SimplifyJobs community repositories:
+  
+  - **Freshness**: Data is fetched in real-time from GitHub, so you always get the latest available information
+  - **Accuracy**: The SimplifyJobs community actively maintains these repositories, but some positions may be filled or closed
+  - **Verification**: Always click through to the application link to verify the position is still open
+  
+  The tool displays the total count of available positions when you run it, helping you gauge the current state of the job market.
+</Accordion>
+
+<Accordion title="Can I filter by multiple criteria at once?">
+  Yes! You can combine role, timeframe, and location filters:
+  
+  ```bash
+  # New grad positions in Boston or New York from the last month
+  swelist --role newgrad --timeframe lastmonth --location "Boston, New York"
+  
+  # Internships in California from the last week
+  swelist --role internship --timeframe lastweek --location CA
+  ```
+  
+  All filters work together to help you find the most relevant positions.
+</Accordion>
+
+<Accordion title="What's the difference between internship and newgrad roles?">
+  swelist tracks two types of positions:
+  
+  - **Internship** (`--role internship`): Summer internship positions, typically for students currently enrolled in university programs
+  - **New Grad** (`--role newgrad`): Full-time positions for recent graduates or those graduating soon
+  
+  The default role is `internship`. Specify `--role newgrad` to see new graduate opportunities instead.
+</Accordion>
+
+<Accordion title="I found a bug or have a feature request. What should I do?">
+  We welcome bug reports and feature requests!
+  
+  1. **Report an issue**: [Open an issue on GitHub](https://github.com/chenyuan99/swelist/issues)
+  2. **Check existing issues**: See if your issue has already been reported
+  3. **Contribute**: Consider submitting a pull request if you can fix the issue yourself
+  
+  Visit our [Contributing guide](/resources/contributing) for more information on how to contribute to the project.
+</Accordion>
+
+## Still Have Questions?
+
+If your question isn't answered here:
+- Check the [installation guide](/installation) for setup help
+- Review the [usage examples](/usage) for command syntax
+- Open an issue on [GitHub](https://github.com/chenyuan99/swelist/issues)

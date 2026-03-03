@@ -1,0 +1,89 @@
+---
+title: Introduction to swelist
+description: A powerful CLI tool for tracking tech internships and new-grad positions with real-time data from curated GitHub repositories
+---
+
+## What is swelist?
+
+swelist is a command-line tool designed for job seekers to efficiently track and discover technology internship and new-graduate positions. It pulls real-time data from the widely-used [Summer2025-Internships](https://github.com/SimplifyJobs/Summer2025-Internships) and [New-Grad-Positions](https://github.com/SimplifyJobs/New-Grad-Positions) repositories maintained by SimplifyJobs.
+
+Instead of manually checking GitHub repositories or multiple job boards, swelist brings the latest opportunities directly to your terminal with powerful filtering capabilities.
+
+## Get Started
+
+<CardGroup cols={3}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install swelist in seconds with pip
+  </Card>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Get your first job listings in under a minute
+  </Card>
+  <Card title="Commands" icon="terminal" href="/usage/commands">
+    Explore all available commands and options
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Real-Time Data" icon="sync">
+    Access live job postings from curated GitHub repositories maintained by SimplifyJobs
+  </Card>
+  <Card title="Time-Based Filtering" icon="clock">
+    Filter positions by last day, week, or month to find the newest opportunities
+  </Card>
+  <Card title="Location Filtering" icon="location-dot">
+    Search by city, state code, or country to find positions in your preferred locations
+  </Card>
+  <Card title="Dual Role Support" icon="briefcase">
+    Track both internship and new-grad positions from a single tool
+  </Card>
+  <Card title="Simple CLI Interface" icon="terminal">
+    Easy-to-use command-line interface with intuitive flags and options
+  </Card>
+  <Card title="No Authentication" icon="lock-open">
+    Completely open and free - no API keys or credentials required
+  </Card>
+</CardGroup>
+
+## Real-World Use Case
+
+Imagine you're a computer science student in Boston looking for summer 2025 internships. Instead of:
+
+1. Manually checking GitHub repositories daily
+2. Scrolling through hundreds of postings to find new ones
+3. Filtering by location yourself
+4. Keeping track of what you've already seen
+
+You can simply run:
+
+```bash
+swelist --role internship --timeframe lastday --location Boston
+```
+
+This instantly shows you all internship positions in Boston that were posted in the last 24 hours, complete with company name, job title, and direct application links.
+
+<Note>
+swelist is optimized for automation pipelines, periodic polling agents, and human-in-the-loop job search workflows. It's perfect for daily checks or integration into job tracking systems.
+</Note>
+
+## Why swelist?
+
+- **Stateless & Safe**: No side effects, no persistent storage, safe for repeated execution
+- **Always Up-to-Date**: Fetches live data at runtime directly from source repositories
+- **Developer-Friendly**: Built with Python, distributed via PyPI, open source under MIT license
+- **Automation-Ready**: Designed for cron jobs, CI pipelines, and autonomous agents
+
+## What's Next?
+
+<Steps>
+  <Step title="Install swelist">
+    Head to the [installation guide](/installation) to get swelist set up on your system
+  </Step>
+  <Step title="Try the Quick Start">
+    Follow the [quick start guide](/quickstart) to get your first job listings
+  </Step>
+  <Step title="Explore Commands">
+    Learn about all available options in the [commands reference](/usage/commands)
+  </Step>
+</Steps>

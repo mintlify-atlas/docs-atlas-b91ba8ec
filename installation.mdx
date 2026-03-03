@@ -1,0 +1,165 @@
+---
+title: Installation
+description: Get swelist installed on your system in seconds using pip
+---
+
+## Prerequisites
+
+Before installing swelist, ensure you have:
+
+- **Python 3.7 or higher** installed on your system
+- **pip** (Python package installer)
+- **Internet access** for downloading the package and fetching job data
+
+<Note>
+swelist is compatible with macOS, Linux, and Windows operating systems.
+</Note>
+
+## Installation Steps
+
+<Steps>
+  <Step title="Install via pip">
+    The easiest way to install swelist is using pip, Python's package installer.
+
+    <CodeGroup>
+    ```bash Standard Installation
+    pip install swelist
+    ```
+
+    ```bash User Installation (no sudo)
+    pip install --user swelist
+    ```
+
+    ```bash Upgrade to Latest Version
+    pip install --upgrade swelist
+    ```
+
+    ```bash Using uv (faster alternative)
+    uv pip install swelist
+    ```
+    </CodeGroup>
+
+    The current version of swelist is **0.1.7**.
+  </Step>
+
+  <Step title="Verify Installation">
+    After installation completes, verify that swelist is correctly installed by checking the version:
+
+    ```bash
+    swelist --version
+    ```
+
+    You should see output similar to:
+    ```
+    Awesome CLI Version: 0.1.7
+    ```
+
+    <Tip>
+    If the `swelist` command is not found, you may need to add Python's bin directory to your PATH. The exact location depends on your operating system and Python installation method.
+    </Tip>
+  </Step>
+
+  <Step title="Run Your First Command">
+    Test that everything is working by running swelist with default options:
+
+    ```bash
+    swelist
+    ```
+
+    This will display internship positions posted in the last 24 hours. You should see output starting with:
+
+    ```
+    Welcome to swelist.com
+    Last updated: [current timestamp]
+    Found [number] tech internships from 2025Summer-Internships
+    Found [number] new-grad tech jobs from New-Grad-Positions
+    ```
+  </Step>
+</Steps>
+
+## Dependencies
+
+swelist has minimal dependencies and will automatically install:
+
+- **typer**: For the command-line interface
+- **rich**: For formatted terminal output
+
+These dependencies are automatically handled during installation.
+
+## Installation Methods by Environment
+
+### Virtual Environment (Recommended)
+
+For project isolation, install swelist in a virtual environment:
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+
+# Install swelist
+pip install swelist
+```
+
+### Global Installation
+
+For system-wide access:
+
+```bash
+# May require sudo on macOS/Linux
+sudo pip install swelist
+```
+
+### Using pipx (Isolated Installation)
+
+For an isolated installation that's globally accessible:
+
+```bash
+# Install pipx first if needed
+pip install pipx
+pipx ensurepath
+
+# Install swelist
+pipx install swelist
+```
+
+<Warning>
+If you encounter permission errors during installation, use `pip install --user swelist` instead of `sudo pip install` to install for your user only.
+</Warning>
+
+## Troubleshooting
+
+### Command Not Found
+
+If `swelist` is not recognized after installation:
+
+1. Verify the installation location: `pip show swelist`
+2. Check that Python's scripts directory is in your PATH
+3. Try using `python -m swelist` instead of `swelist`
+
+### SSL Certificate Errors
+
+swelist fetches data from GitHub over HTTPS. If you encounter SSL errors:
+
+- Ensure your system's SSL certificates are up to date
+- Check your network connection and firewall settings
+- Verify you're not behind a proxy that intercepts HTTPS traffic
+
+### Version Conflicts
+
+If you have dependency conflicts:
+
+```bash
+# Uninstall and reinstall
+pip uninstall swelist
+pip install swelist
+```
+
+## Next Steps
+
+Now that swelist is installed, head over to the [Quick Start guide](/quickstart) to learn how to use it effectively.
