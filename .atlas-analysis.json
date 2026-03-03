@@ -1,0 +1,51 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "swelist",
+  "projectDescription": "A CLI tool for job seekers to track tech internships and new-grad positions",
+  "theme": "palm",
+  "primaryColor": "#2563eb",
+  "lightColor": "#60a5fa",
+  "darkColor": "#1e40af",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "installation",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Usage",
+        "pages": [
+          "usage/commands",
+          "usage/examples",
+          "usage/filtering"
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "resources/contributing",
+          "resources/faq"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Track internships and new-grad positions in real-time",
+    "Filter jobs by timeframe (last day, week, or month)",
+    "Filter jobs by location (city, state, or country)",
+    "View company details and application links",
+    "Data sourced from SimplifyJobs repositories"
+  ],
+  "publicApiSurface": [
+    "swelist --role internship",
+    "swelist --role newgrad",
+    "swelist --timeframe lastday",
+    "swelist --timeframe lastweek",
+    "swelist --timeframe lastmonth",
+    "swelist --location <location>"
+  ]
+}
